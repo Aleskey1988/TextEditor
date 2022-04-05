@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/TextEditor">
+        <file>Resources/save.svg</file>
+    </qresource>
+</RCC>
