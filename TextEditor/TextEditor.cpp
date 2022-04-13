@@ -9,9 +9,26 @@ TextEditor::TextEditor(QWidget* parent)
 	connect(ui.actionSave_as, &QAction::triggered, this, &TextEditor::onSaveAs);
 	connect(ui.actionExit, &QAction::triggered, this, &TextEditor::onExit);
 
+	connect(ui.actionUndo, &QAction::triggered, this, &TextEditor::onUndo);
+	connect(ui.actionRedo, &QAction::triggered, this, &TextEditor::onRedo);
+	connect(ui.actionCut, &QAction::triggered, this, &TextEditor::onCut);
+	connect(ui.actionCopy, &QAction::triggered, this, &TextEditor::onCopy);
+	connect(ui.actionPaste, &QAction::triggered, this, &TextEditor::onPaste);
+	connect(ui.actionDelete, &QAction::triggered, this, &TextEditor::onDelete);
+
 	connect(ui.actionSearch, &QAction::triggered, this, &TextEditor::onFind);
 	connect(&findDlg, &FindDialog::textFound,
 		this, &TextEditor::onTextFound);
+
+	connect(ui.actionReplace, &QAction::triggered,
+		this, &TextEditor::onReplace);
+	connect(&replaceDlg, &ReplaceDialog::textReplaced,
+		this, &TextEditor::onTextReplaced);
+
+	connect(ui.actionSelect_all, &QAction::triggered, this, &TextEditor::onSelectAll);
+	connect(ui.actionDate_and_time, &QAction::triggered, this, &TextEditor::onDateTime);
+	
+	connect(ui.actionFont, &QAction::triggered, this, &TextEditor::onFont);
 }
 
 void TextEditor::onOpen()
@@ -71,12 +88,33 @@ void TextEditor::onFind()
 	findDlg.SetText(ui.plainTextEdit->toPlainText());
 	findDlg.show();
 }
-void TextEditor::onReplace() {}
-void TextEditor::onSelectAll() {}
-void TextEditor::onDateTime() {}
+void TextEditor::onReplace()
+{
+	replaceDlg.show();
+}
+void TextEditor::onSelectAll()
+{
+	ui.plainTextEdit->selectAll();
+}
+void TextEditor::onDateTime()
+{
+	QDateTime dateTime;
+	QString str = dateTime.currentDateTime().toString("dd.MM.yyyy hh:mm:ss:zzz");
+	QTextCursor cursor = ui.plainTextEdit->textCursor();
+	int pos = cursor.position();
+	QString text = ui.plainTextEdit->toPlainText();
+	text.insert(pos, str);
+	ui.plainTextEdit->setPlainText(text);
+}
 void TextEditor::onIncreaseFont() {}
 void TextEditor::onDecreaseFont() {}
-void TextEditor::onFont() {}
+void TextEditor::onFont()
+{
+	bool ok;
+	QFont font = QFontDialog::getFont(
+		&ok, QFont("MS Shell Dlg 2 [Serif]", 8), this);
+	ui.plainTextEdit->setFont(font);
+}
 void TextEditor::onAbout() {}
 
 void TextEditor::onTextFound(int index, int length)
@@ -85,4 +123,10 @@ void TextEditor::onTextFound(int index, int length)
 	c.setPosition(index);
 	c.setPosition(index + length, QTextCursor::KeepAnchor);
 	ui.plainTextEdit->setTextCursor(c);
+}
+void TextEditor::onTextReplaced(QString what, QString two)
+{
+	QString text = ui.plainTextEdit->toPlainText();
+	text.replace(what, two);
+	ui.plainTextEdit->setPlainText(text);
 }

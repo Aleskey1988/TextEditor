@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="FindDialog.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ReplaceDialog.cpp" />
     <ClCompile Include="TextEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="FindDialog.ui" />
+    <QtUic Include="ReplaceDialog.ui" />
     <QtUic Include="TextEditor.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="FindDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="ReplaceDialog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

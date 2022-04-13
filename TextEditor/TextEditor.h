@@ -3,6 +3,7 @@
 #include <QtWidgets>
 #include "ui_TextEditor.h"
 #include "FindDialog.h"
+#include "ReplaceDialog.h"
 
 class TextEditor : public QMainWindow
 {
@@ -32,7 +33,9 @@ private:
 	void onAbout();
 
 	void onTextFound(int index, int length);
+	void onTextReplaced(QString what, QString two);
 
 	Ui::TextEditorClass ui;
 	FindDialog findDlg;
+	ReplaceDialog replaceDlg;
 };
