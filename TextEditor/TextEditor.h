@@ -11,6 +11,7 @@ class TextEditor : public QMainWindow
 
 public:
 	TextEditor(QWidget *parent = Q_NULLPTR);
+	~TextEditor();
 
 private:
 	void onOpen();
@@ -22,7 +23,6 @@ private:
 	void onCut();
 	void onCopy();
 	void onPaste();
-	void onDelete();
 	void onFind();
 	void onReplace();
 	void onSelectAll();
@@ -33,9 +33,14 @@ private:
 	void onAbout();
 
 	void onTextFound(int index, int length);
-	void onTextReplaced(QString what, QString two);
+	void onTextReplaced(QString what, QString two, bool useCase);
+
+	void saveSettings();
+	void loadSettings();
+	void saveToFile();
 
 	Ui::TextEditorClass ui;
 	FindDialog findDlg;
 	ReplaceDialog replaceDlg;
+	QString fileName;
 };

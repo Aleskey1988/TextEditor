@@ -9,12 +9,11 @@ class ReplaceDialog : public QWidget
 
 public:
 	ReplaceDialog(QWidget *parent = Q_NULLPTR);
-	~ReplaceDialog();
 
 	void SetTextForFind(QString text);
 
 signals:
-	void textReplaced(QString what, QString two);
+	void textReplaced(QString what, QString two, bool useCase);
 
 private:
 	void onReplace();

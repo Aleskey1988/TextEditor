@@ -9,7 +9,6 @@ class FindDialog : public QWidget
 
 public:
 	FindDialog(QWidget *parent = Q_NULLPTR);
-	~FindDialog();
 
 	void SetText(QString text);
 	void SetTextForFind(QString text);
